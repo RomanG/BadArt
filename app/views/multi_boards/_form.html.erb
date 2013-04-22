@@ -1,0 +1,21 @@
+<%= form_for(@multi_board) do |f| %>
+  <% if @multi_board.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@multi_board.errors.count, "error") %> prohibited this multi_board from being saved:</h2>
+
+      <ul>
+      <% @multi_board.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :link %><br />
+    <%= f.text_field :link %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

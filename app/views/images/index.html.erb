@@ -1,0 +1,10 @@
+<h1>Bad Art</h1>
+
+<div id="columns">
+<% @images.each do |image| %>
+   <div class="pin">
+    <%= image_tag image.link %>
+    <p> <%= link_to 'Make it Bad', image %> </p>
+    </div>
+<% end %>
+</div>
