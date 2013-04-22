@@ -1,4 +1,5 @@
 class ImagesController < ApplicationController
+  include AWS::S3
   # GET /images
   # GET /images.json
   def index
@@ -14,28 +15,28 @@ class ImagesController < ApplicationController
   # GET /images/1.json
   def show
     @image = Image.find(params[:id])
-    FileUtils.mkdir_p "public/images/#{@image.id}"
     @formatted_image = MiniMagick::Image.open("#{@image.link}")
     @formatted_image.sketch 15
-    @formatted_image.write "public/images/#{@image.id}/my_test.jpg"
+    #@formatted_image.write "public/images/#{@image.id}/my_test.jpg"
+    S3Object.store "#{@image.id}/my_test1.jpg", @formatted_image.to_blob, "BadArt"
     @formatted_image = MiniMagick::Image.open("#{@image.link}")
     @formatted_image.charcoal 0
-    @formatted_image.write "public/images/#{@image.id}/my_test2.jpg"
+    S3Object.store "#{@image.id}/my_test2.jpg", @formatted_image.to_blob, "BadArt"
     @formatted_image = MiniMagick::Image.open("#{@image.link}")
     @formatted_image.emboss 2
-    @formatted_image.write "public/images/#{@image.id}/my_test3.jpg"
+    S3Object.store "#{@image.id}/my_test3.jpg", @formatted_image.to_blob, "BadArt"
     @formatted_image = MiniMagick::Image.open("#{@image.link}")
     @formatted_image.normalize
-    @formatted_image.write "public/images/#{@image.id}/my_test4.jpg"
+    S3Object.store "#{@image.id}/my_test4.jpg", @formatted_image.to_blob, "BadArt"
     @formatted_image = MiniMagick::Image.open("#{@image.link}")
     @formatted_image.implode -3
-    @formatted_image.write "public/images/#{@image.id}/my_test5.jpg"
+    S3Object.store "#{@image.id}/my_test5.jpg", @formatted_image.to_blob, "BadArt"
     @formatted_image = MiniMagick::Image.open("#{@image.link}")
     @formatted_image.monochrome
-    @formatted_image.write "public/images/#{@image.id}/my_test6.jpg"
+    S3Object.store "#{@image.id}/my_test6.jpg", @formatted_image.to_blob, "BadArt"
     @formatted_image = MiniMagick::Image.open("#{@image.link}")
     @formatted_image.solarize(threshold=50)
-    @formatted_image.write "public/images/#{@image.id}/my_test7.jpg"
+    S3Object.store "#{@image.id}/my_test7.jpg", @formatted_image.to_blob, "BadArt"
 
     respond_to do |format|
       format.html # show.html.erb

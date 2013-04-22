@@ -3,13 +3,9 @@
 <div class=images>
   <h1>Your Bad Art</h1>
   <%= image_tag @image.link %>
-<%= image_tag "/images/#{@image.id}/my_test.jpg"%>
-<%= image_tag "/images/#{@image.id}/my_test2.jpg"%>
-<%= image_tag "/images/#{@image.id}/my_test3.jpg"%>
-<%= image_tag "/images/#{@image.id}/my_test4.jpg"%>
-<%= image_tag "/images/#{@image.id}/my_test5.jpg"%>
-<%= image_tag "/images/#{@image.id}/my_test6.jpg"%>
-<%= image_tag "/images/#{@image.id}/my_test7.jpg"%>
+<% (1..7).each do |i| %>  
+<%= image_tag AWS::S3::S3Object.url_for("#{@image.id}/my_test#{i}.jpg", "BadArt")%>
+<% end %>
 
 <%= link_to 'Back', images_path %>
 </div>
