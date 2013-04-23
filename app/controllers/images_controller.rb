@@ -17,6 +17,7 @@ class ImagesController < ApplicationController
     @image = Image.find(params[:id])
     @formatted_image = MiniMagick::Image.open("#{@image.link}")
     @formatted_image.sketch 15
+    #FileUtils.mkdir_p "public/images/#{@image.id}"
     #@formatted_image.write "public/images/#{@image.id}/my_test.jpg"
     S3Object.store "#{@image.id}/my_test1.jpg", @formatted_image.to_blob, "BadArt"
     @formatted_image = MiniMagick::Image.open("#{@image.link}")
